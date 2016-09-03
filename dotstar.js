@@ -58,6 +58,7 @@ DotStarStrip.prototype.setPixel = function(options, cb){
 }
 
 DotStarStrip.prototype.test = function(cb){
+    /*
   for(let i=4; i < this.pixels.length - 4; i+=4){
     this.pixels[i] = 0xFF
     this.pixels[i+1] = 0xAA
@@ -68,6 +69,8 @@ DotStarStrip.prototype.test = function(cb){
     if(err) throw new Error(err)
     if(cb){ cb() }
   })
+    */
+  cb()
 }
 
 module.exports = DotStarStrip

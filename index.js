@@ -10,19 +10,16 @@ let options = {
   color: [0, 200, 255]
 }
 
-let i = 0
-strip.test()
+let i = 0;
+let r = g = b = 0;
+let n = 0;
 
-setInterval(function(){
-    options.pixel = i
-    strip.setPixel(options)
-    i++
-    if(i == 59) i = 0
-    strip.clear(function(){
-      console.log('cleared')
-      strip.test(function(){
-        console.log('tested')
-      })
-    })
-    console.log('waiting')
-}, 5000)
+strip.clear(function() {
+  setInterval(function() {
+    i++;
+    r = i % 3 == 0 ? 0xff : 0x00;
+    g = i % 3 == 1 ? 0xff : 0x00;
+    b = i % 3 == 2 ? 0xff : 0x00;
+    strip.setPixel({pixel: 10, color: [r, g, b]})
+  }, 200)
+});
