@@ -1,8 +1,23 @@
 const tessel = require('tessel')
 const color = require('color')
 const DotStarStrip = require('./dotstar')
+const five = require('johnny-five')
 
 let strip = new DotStarStrip(60, 'A')
+var board = new five.Board();
+
+let sensorValue = 0;
+
+board.on('ready', function() {
+  let sensor = new five.Sensor({
+    pin: 0,
+    type: 'analog'
+  });
+  sensor.on('change', function() {
+    sensorValue = this.scaleTo(0, 60);
+    console.log('got {' + sensorValue + '}')
+  });
+});
 
 strip.init(4000000)
 
@@ -17,6 +32,8 @@ let choice = 0;
 
 let max = 60;
 
+console.log('starting...')
+
 strip.clear(function() {
   setInterval(function() {
     i++;
@@ -25,13 +42,14 @@ strip.clear(function() {
       choice++;
       if (choice == 3) { choice = 0; }
     }
-    let limit = (i * 1);
+    let limit = sensorValue;
     for (let k = 0; k < limit; k++) {
       r = choice == 0 ? 0xff : 0x00;
       g = choice == 1 ? 0xff : 0x00;
       b = choice == 2 ? 0xff : 0x00;
       strip.poke({pixel: k, color: [r, g, b]})
     }
+    strip.poke({pixel: limit, color: [0, 0, 0]})
     strip.send()
   }, 20)
 });
