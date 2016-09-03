@@ -44,18 +44,25 @@ DotStarStrip.prototype.clear = function(cb){
 }
 
 DotStarStrip.prototype.setPixel = function(options, cb){
-  cb = cb || function(){}
   //TODO: Validate options: need pixel, color array of rgb or red, green, blue
-    let offset = 4 + 4 * Math.floor(options.pixel)
+  this.poke(options)
+  this.send(cb)
+}
 
+DotStarStrip.prototype.poke = function(options) {
+  let offset = 4 + 4 * Math.floor(options.pixel)
   this.pixels[offset] = 0xFF
   this.pixels[offset + 1] = options.color[2]
   this.pixels[offset + 2] = options.color[1]
   this.pixels[offset + 3] = options.color[0]
+};
 
-
+DotStarStrip.prototype.send = function(cb) {
+  cb = cb || function(){}
   this.spi.transfer(this.pixels, cb)
 }
+
+
 
 DotStarStrip.prototype.test = function(cb){
     /*
