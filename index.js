@@ -1,24 +1,23 @@
 const tessel = require('tessel')
-const colot = require('color')
+const color = require('color')
 const DotStarStrip = require('./dotstar')
 
-let strip = new DotStarStrip(60, 'A')
+let strip = new DotStarStrip(10, 'A')
 
 strip.init(4000000)
-strip.clear()
 
 let options = {
-  color: [50, 0, 150]
+  color: [0, 200, 255]
 }
 
 let i = 0
 strip.test()
 
 setInterval(function(){
-    // options.pixel = i
-    // strip.setPixel(options)
-    // i++
-    // if(i == 59) i = 0
+    options.pixel = i
+    strip.setPixel(options)
+    i++
+    if(i == 59) i = 0
     strip.clear(function(){
       console.log('cleared')
       strip.test(function(){
