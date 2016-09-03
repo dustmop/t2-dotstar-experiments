@@ -2,7 +2,7 @@ const tessel = require('tessel')
 const color = require('color')
 const DotStarStrip = require('./dotstar')
 
-let strip = new DotStarStrip(10, 'A')
+let strip = new DotStarStrip(60, 'A')
 
 strip.init(4000000)
 
@@ -20,6 +20,6 @@ strip.clear(function() {
     r = i % 3 == 0 ? 0xff : 0x00;
     g = i % 3 == 1 ? 0xff : 0x00;
     b = i % 3 == 2 ? 0xff : 0x00;
-    strip.setPixel({pixel: 10, color: [r, g, b]})
+    strip.setPixel({pixel: i / 3, color: [r, g, b]})
   }, 200)
 });
