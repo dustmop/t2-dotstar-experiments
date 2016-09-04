@@ -11,8 +11,8 @@ let flexValue = 0;
 var sensor = tessel.port.B.pin[2];
 
 function scaleFlexSensor(rawValue) {
-  const rawMax = 3.3;
-  const rawMin = 1.764404296875;
+  const rawMax = 1.0;
+  const rawMin = 0.5;
   const rawHeight = rawMax - rawMin;
   const scaleRange = numPixels;
   const scaleEffect = scaleRange / rawHeight;
@@ -24,6 +24,7 @@ setInterval(function() {
     if (err) {
       return;
     }
+    //console.log("rawValue = ", rawValue);
     flexValue = scaleFlexSensor(rawValue);
   });
 }, 100);
@@ -45,7 +46,7 @@ setTimeout(function() {
 strip.clear(function() {
   setInterval(function() {
     cycle++;
-    if (cycle >= 2) {
+    if (cycle >= 1) {
       cycle = 0;
       choice++;
       if (choice == 3) { choice = 0; }
