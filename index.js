@@ -1,22 +1,15 @@
 const tessel = require('tessel')
 const color = require('color')
 const DotStarStrip = require('./dotstar')
-const five = require('johnny-five')
 
 let strip = new DotStarStrip(60, 'A')
-var board = new five.Board();
 
 let sensorValue = 0;
 
-board.on('ready', function() {
-  let sensor = new five.Sensor({
-    pin: 0,
-    type: 'analog'
-  });
-  sensor.on('change', function() {
-    sensorValue = this.scaleTo(0, 60);
-    console.log('got {' + sensorValue + '}')
-  });
+var sensor = tessel.port.B.pin[2];
+sensor.on('change', function(value) {
+  console.log('Sensor value is ', value);
+  sensorValue = value;
 });
 
 strip.init(4000000)
