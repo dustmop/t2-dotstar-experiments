@@ -42,7 +42,6 @@ let choice = 0;
 
 console.log('starting...')
 
-setTimeout(function() {
 strip.clear(function() {
   setInterval(function() {
     cycle++;
@@ -63,6 +62,5 @@ strip.clear(function() {
       }
     }
     strip.send();
-  }, 200);
+  }, 100);
 });
-}, 50);
